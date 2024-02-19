@@ -4,6 +4,7 @@ import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import * as FileSystem from 'expo-file-system'
 import { shareAsync } from 'expo-sharing'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 const INITIAL_REGION = {
   latitude: 37.78825,
@@ -57,12 +58,64 @@ const Page = () => {
   
   return (
     <View style={{ flex: 1 }}>
+      <GooglePlacesAutocomplete
+        placeholder='Search'
+        fetchDetails
+        onPress={(data, details = null) => {
+          console.log('data', data)
+          console.log('details', details)
+          if (details) {
+            const { lat, lng } = details.geometry.location
+            // mapRef.current?.animateToRegion({
+            //   latitude: lat,
+            //   longitude: lng,
+            //   latitudeDelta: 0.0922,
+            //   longitudeDelta: 0.0421,
+            // }, 2000)
+            setRegion({
+              latitude: lat,
+              longitude: lng,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            })
+          }
+        }}
+        query={{
+          key: process.env.EXPO_PUBLIC_GOOGLE_PLACES_API_KEY,
+          language: 'en',
+        }}
+        styles={{
+          container: {
+            flex: 0,
+          },
+          textInput: {
+            paddingLeft: 40,
+          },
+          textInputContainer: {
+            padding: 4,
+          },
+        }}
+        renderLeftButton={() => (
+          <View
+            style={{
+              position: 'absolute',
+              left: 15,
+              top: 14,
+              zIndex: 2,
+            }}
+          >
+            <Ionicons name='search-outline' size={24} color='black' />
+          </View>
+        )}
+        onFail={(error) => console.error('GooglePlacesAutocomplete error', error)}
+      />
       <MapView
         ref={mapRef}
         provider={PROVIDER_GOOGLE}
         mapType='standard'
-        style={StyleSheet.absoluteFill}
+        style={[StyleSheet.absoluteFill, { zIndex: -1}]}
         initialRegion={region}
+        region={region}
         showsMyLocationButton
         showsIndoors
         showsCompass
@@ -96,9 +149,10 @@ const Page = () => {
 const styles = StyleSheet.create({
   btnContainer: {
     position: 'absolute',
-    top: 10,
+    top: 60,
     right: 10,
     gap: 10,
+    zIndex: -1,
   },
   btn: {
     backgroundColor: 'white',
