@@ -16,12 +16,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.arizakevin.mapsapp",
+      "config": {
+        "googleMapsApiKey": "AIzaSyBUGOQzwMfD4NwxWxOR-BjUde1LSpommC8"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.arizakevin.mapsapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyClLcZgHQ0xgyYq2LMz_Q9WYmKYF2Nc68c"
+        }
       }
     },
     "web": {
