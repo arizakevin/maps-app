@@ -5,13 +5,13 @@ interface Styler {
   visibility?: string;
 }
 
-interface RootObject {
+interface MapStyle {
   elementType?: string;
   stylers: Styler[];
   featureType?: string;
 }
 
-export const mapStyle: RootObject[] = [
+export const mapStyle: MapStyle[] = [
   {
     "elementType": "geometry",
     "stylers": [

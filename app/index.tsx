@@ -1,11 +1,12 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Alert, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 import React, { useRef } from 'react'
-import MapView, { Circle, PROVIDER_GOOGLE, Polygon, Polyline, Region } from 'react-native-maps'
+import MapView, { Callout, Circle, Marker, PROVIDER_GOOGLE, Polygon, Polyline } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import * as FileSystem from 'expo-file-system'
 import { shareAsync } from 'expo-sharing'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import { mapStyle } from '@/assets/mapStyle'
+import { markers } from '@/assets/markers'
 
 const INITIAL_REGION = {
   latitude: 37.78825,
@@ -55,6 +56,20 @@ const Page = () => {
       { encoding: FileSystem.EncodingType.Base64 }
     )
     await shareAsync(uri)
+  }
+
+  const onMarkerSelected = (marker: any) => {
+    // Animate and zoom to the marker subtly
+    mapRef.current?.animateToRegion({
+      latitude: marker.nativeEvent.coordinate.latitude,
+      longitude: marker.nativeEvent.coordinate.longitude,
+      latitudeDelta: 0.002,
+      longitudeDelta: 0.002,
+    }, 2000)
+  }
+
+  const onCalloutPress = () => {
+    Alert.alert('You pressed the callout!')
   }
   
   return (
@@ -159,6 +174,52 @@ const Page = () => {
           strokeColor='rgba(0, 0, 255, 0.5)'
           strokeWidth={2}
         />
+
+        {/* Markers */}
+        {markers.map((marker, index) => (
+          <Marker
+            key={marker.latitude + marker.longitude + marker.name}
+            coordinate={marker}
+            title={marker.name}
+            onPress={onMarkerSelected}
+          />
+        ))}
+
+        {/* Marker with custom color */}
+        <Marker
+          key={37.7749 + -122.4194}
+          coordinate={{ latitude: 37.7749, longitude: -122.4194 }}
+          title='Custom Color Marker'
+          description='This is an example of a custom marker color'
+          pinColor='green'
+        />
+
+        {/* Marker with custom image */}
+        <Marker
+          key={37.78825 + -122.4324}
+          coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+          title='Custom Image Marker'
+          description='This is an example of a custom marker image'
+          image={require('@/assets/images/favicon.png')}
+        />
+
+        {/* Marker with Callout */}
+        <Marker
+          // coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+          // Move the marker to a unique location to avoid overlapping
+          key={37.78825 + -125.4325}
+          pinColor='blue'
+          coordinate={{ latitude: 37.78125, longitude: -122.4425 }}
+          title='Marker with Callout'
+          description='This is an example of a marker with a callout'
+        >
+          <Callout onPress={onCalloutPress}>
+            <View style={{ padding: 10 }}>
+              <Text style={{ fontSize: 24 }}>Press me!</Text>
+            </View>
+          </Callout>
+        </Marker>
+
       </MapView>
 
       <View style={styles.btnContainer}>
