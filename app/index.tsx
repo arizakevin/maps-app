@@ -1,12 +1,14 @@
 import { Alert, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 import React, { useRef } from 'react'
-import MapView, { Callout, Circle, Marker, PROVIDER_GOOGLE, Polygon, Polyline } from 'react-native-maps'
+import { Callout, Circle, Marker, PROVIDER_GOOGLE, Polygon, Polyline } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import * as FileSystem from 'expo-file-system'
 import { shareAsync } from 'expo-sharing'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import { mapStyle } from '@/assets/mapStyle'
 import { markers } from '@/assets/markers'
+import MapView from 'react-native-map-clustering'
+
 
 const INITIAL_REGION = {
   latitude: 37.78825,
@@ -17,7 +19,7 @@ const INITIAL_REGION = {
 
 const Page = () => {
   const [region, setRegion] = React.useState(INITIAL_REGION)
-  const mapRef = useRef<MapView>(null)
+  const mapRef = useRef<any>(null)
 
   // const onRegionChange = (region: Region) => {
   //   console.log('onRegionChange', region);
@@ -143,6 +145,8 @@ const Page = () => {
         showsPointsOfInterest
         // onRegionChange={onRegionChange}
         customMapStyle={mapStyle}
+        clusterColor='#FF5252'
+        clusterTextColor='white'
       >
         <Polyline
           coordinates={[
