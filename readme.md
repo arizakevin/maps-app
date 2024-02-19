@@ -2,6 +2,15 @@
 
 This README document provides a comprehensive overview of a React Native application designed to showcase advanced mapping functionalities, including the use of custom markers, polygons, polylines, circles, and integration with Google Places Autocomplete for location search. The app employs the `react-native-maps` library for map rendering and the `expo-file-system` and `expo-sharing` for snapshot functionalities.
 
+## App Showcase
+
+Here's a look at the app in action:
+
+<p align="center">
+  <img src="assets/images/screenshot.png" alt="App Screenshot" width="250" style="margin-right: 20px;"/>
+  <img src="assets/images/screenshot-2.png" alt="App Screenshot 2" width="250"/>
+</p>
+
 ## Features
 
 - **Google Places Autocomplete**: Search functionality to find places and zoom into the selected location on the map.
