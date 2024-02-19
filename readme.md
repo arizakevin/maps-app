@@ -63,12 +63,3 @@ Upon launching the app, you can search for places using the Google Places Autoco
 ## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests with new features, improvements, or bug fixes.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- `react-native-maps` and `expo` libraries for providing the core functionalities.
-- Google Places API for location search capabilities.
