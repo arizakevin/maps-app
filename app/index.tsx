@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useRef } from 'react'
-import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps'
+import MapView, { Circle, PROVIDER_GOOGLE, Polygon, Polyline, Region } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import * as FileSystem from 'expo-file-system'
 import { shareAsync } from 'expo-sharing'
@@ -128,7 +128,38 @@ const Page = () => {
         showsPointsOfInterest
         // onRegionChange={onRegionChange}
         customMapStyle={mapStyle}
-      />
+      >
+        <Polyline
+          coordinates={[
+            { latitude: 37.8025259, longitude: -122.4351431 },
+            { latitude: 37.7896386, longitude: -122.421646 },
+            { latitude: 37.7665248, longitude: -122.4161628 },
+            { latitude: 37.7734153, longitude: -122.4577787 },
+            { latitude: 37.7948605, longitude: -122.4596065 },
+            { latitude: 37.8025259, longitude: -122.4351431 },
+          ]}
+          strokeColor='blue'
+          strokeWidth={6}
+        />
+        <Circle
+          center={{ latitude: 37.8025259, longitude: -122.4351431 }}
+          radius={1000}
+          fillColor='rgba(0, 0, 255, 0.1)'
+          strokeColor='rgba(0, 0, 255, 0.5)'
+          strokeWidth={2}
+        />
+        <Polygon
+          coordinates={[
+            { latitude: 37.8025259, longitude: -122.4351431 },
+            { latitude: 37.7665248, longitude: -122.4161628 },
+            { latitude: 37.7734153, longitude: -122.4577787 },
+            { latitude: 37.8025259, longitude: -122.4351431 },
+          ]}
+          fillColor='rgba(0, 0, 255, 0.1)'
+          strokeColor='rgba(0, 0, 255, 0.5)'
+          strokeWidth={2}
+        />
+      </MapView>
 
       <View style={styles.btnContainer}>
         <TouchableOpacity style={styles.btn} onPress={takeSnapshotAndShare}>
