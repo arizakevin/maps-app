@@ -1,3 +1,5 @@
+// Google Maps Styling Wizard: https://mapstyle.withgoogle.com/
+
 interface Styler {
   color?: string;
   visibility?: string;
