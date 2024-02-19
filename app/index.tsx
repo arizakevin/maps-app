@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 import * as FileSystem from 'expo-file-system'
 import { shareAsync } from 'expo-sharing'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import { mapStyle } from '@/assets/mapStyle'
 
 const INITIAL_REGION = {
   latitude: 37.78825,
@@ -17,10 +18,10 @@ const Page = () => {
   const [region, setRegion] = React.useState(INITIAL_REGION)
   const mapRef = useRef<MapView>(null)
 
-  const onRegionChange = (region: Region) => {
-    console.log('onRegionChange', region);
-    setRegion(region)
-  }
+  // const onRegionChange = (region: Region) => {
+  //   console.log('onRegionChange', region);
+  //   setRegion(region)
+  // }
 
   const focusMap = () => {
     const newYorkRegion = {
@@ -125,7 +126,8 @@ const Page = () => {
         showsIndoorLevelPicker
         showsUserLocation
         showsPointsOfInterest
-        onRegionChange={onRegionChange}
+        // onRegionChange={onRegionChange}
+        customMapStyle={mapStyle}
       />
 
       <View style={styles.btnContainer}>
